@@ -254,30 +254,30 @@ header{
 
 /* projects */
 .projects{padding:0 0 100px;}
-/* projects slider: native horizontal scroll with snap, driven by arrows/dots */
-.proj-scroller{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;border-radius:var(--radius);}
-.proj-scroller::-webkit-scrollbar{display:none;}
-.proj-scroller:focus-visible{outline:2px solid var(--gold);outline-offset:4px;}
-/* 3 cards visible by default (2 on tablet, 1 on mobile); the track moves one card at a time */
-.proj-scroller .proj-card{flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;}
+/* carousels (réalisations, témoignages): native horizontal scroll with snap, driven by arrows/dots */
+.slider-track{--per-view:3;display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;border-radius:var(--radius);}
+.slider-track::-webkit-scrollbar{display:none;}
+.slider-track:focus-visible{outline:2px solid var(--gold);outline-offset:4px;}
+/* 3 cards visible by default (2 on tablet, 1 on mobile; JS lowers it when there are fewer cards); moves one card at a time */
+.slider-track > *{flex:0 0 calc((100% - (var(--per-view) - 1) * 18px) / var(--per-view));min-width:0;scroll-snap-align:start;}
 .proj-scroller .proj-card:hover{transform:none;}
 /* media keeps its 4:3 frame whatever the screenshot's own size */
 .proj-scroller .proj-media > img,.proj-scroller .proj-placeholder{position:absolute;inset:0;}
 .proj-scroller .proj-flag{z-index:2;}
-.proj-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px;}
-.proj-dots{display:flex;align-items:center;}
-.proj-dot{height:24px;min-width:22px;padding:0;border:0;background:none;display:flex;align-items:center;justify-content:center;}
-.proj-dot::before{content:"";width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.22);transition:width .3s ease,background .3s ease;}
-.proj-dot[aria-current="true"]::before{width:28px;background:var(--gold);}
-.proj-dot:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px;}
-.proj-controls{display:flex;align-items:center;gap:10px;}
-.proj-count{font-family:var(--ff-display);font-size:14px;color:var(--ink-3);margin-right:8px;}
-.proj-arrow{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.03);color:var(--white);display:flex;align-items:center;justify-content:center;transition:border-color .2s ease,background .2s ease,opacity .2s ease;}
-.proj-arrow:hover:not(:disabled){border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07);}
-.proj-arrow:disabled{opacity:.35;cursor:default;}
-.proj-arrow:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
-.proj-play .icon-play,.proj-play.paused .icon-pause{display:none;}
-.proj-play.paused .icon-play{display:block;}
+.slider-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px;}
+.slider-dots{display:flex;align-items:center;}
+.slider-dot{height:24px;min-width:22px;padding:0;border:0;background:none;display:flex;align-items:center;justify-content:center;}
+.slider-dot::before{content:"";width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.22);transition:width .3s ease,background .3s ease;}
+.slider-dot[aria-current="true"]::before{width:28px;background:var(--gold);}
+.slider-dot:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px;}
+.slider-controls{display:flex;align-items:center;gap:10px;}
+.slider-count{font-family:var(--ff-display);font-size:14px;color:var(--ink-3);margin-right:8px;}
+.slider-arrow{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.03);color:var(--white);display:flex;align-items:center;justify-content:center;transition:border-color .2s ease,background .2s ease,opacity .2s ease;}
+.slider-arrow:hover:not(:disabled){border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07);}
+.slider-arrow:disabled{opacity:.35;cursor:default;}
+.slider-arrow:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+.slider-play .icon-play,.slider-play.paused .icon-pause{display:none;}
+.slider-play.paused .icon-play{display:block;}
 .proj-card{
   background:var(--navy-800);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
   display:flex;flex-direction:column;transition:transform .3s ease, border-color .3s ease;
@@ -370,16 +370,13 @@ header{
 
 /* testimonials */
 .testimonials{padding:0 0 100px;}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.testi-card{margin:0;padding:28px 26px;background:var(--navy-800);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;gap:22px;}
-.testi-card blockquote{margin:0;font-size:15px;line-height:1.6;color:var(--white);}
+.testi-card{margin:0;padding:30px 28px;background:var(--navy-800);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;gap:22px;}
+.testi-card blockquote{margin:0;font-size:16px;line-height:1.6;color:var(--white);}
 .testi-card figcaption{display:flex;align-items:center;gap:12px;margin-top:auto;}
 .testi-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#04101f;font-family:var(--ff-display);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .testi-who b{display:block;font-size:14px;}
 .testi-who span{display:block;font-size:12.5px;color:var(--ink-3);}
-/* single testimonial for now: it takes two columns, the invitation fills the third */
-.testi-card.featured{grid-column:span 2;padding:36px 38px;}
-.testi-card.featured blockquote{font-size:clamp(17px,1.45vw,20px);line-height:1.6;max-width:62ch;}
+/* last slide of the testimonials carousel: invitation to leave a review */
 .testi-invite{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:20px;padding:30px 28px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(120deg,rgba(47,107,255,.09),transparent 60%),var(--navy-900);}
 .testi-invite h3{font-size:20px;margin-bottom:6px;}
 .testi-invite p{font-size:14px;color:var(--ink-2);max-width:64ch;}
@@ -464,14 +461,13 @@ footer{padding:60px 0 30px;margin-top:60px;border-top:1px solid var(--line);}
   .location-card{width:100%;max-width:320px;}
   .hero-tech-bar{position:static;flex-direction:row;width:fit-content;margin:18px 0 0;}
   .services-grid{grid-template-columns:repeat(2,1fr);}
-  .proj-scroller .proj-card{flex-basis:calc((100% - 18px) / 2);}
+  .slider-track{--per-view:2;}
   .about-grid{grid-template-columns:1fr;}
   .about-photo{max-width:420px;margin:0 auto;}
   .content-grid{grid-template-columns:1fr 1fr;}
   .method-track{grid-template-columns:repeat(3,1fr);row-gap:34px;}
   .method-line{display:none;}
-  .career-track,.testi-grid{grid-template-columns:repeat(2,1fr);}
-  .testi-invite{grid-column:1/-1;}
+  .career-track{grid-template-columns:repeat(2,1fr);}
   .cta-strip-inner{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;}
   .cs-item{min-width:0;}
   .cs-tagline{grid-column:1/-1;margin-left:0;padding-left:0;border-left:none;border-top:1px solid var(--line);padding-top:16px;}
@@ -486,12 +482,12 @@ footer{padding:60px 0 30px;margin-top:60px;border-top:1px solid var(--line);}
   .stat:nth-child(3){border-left:none;}
   .stat{border-bottom:1px solid var(--line);}
   .services-grid{grid-template-columns:1fr;}
-  .proj-scroller .proj-card{flex-basis:100%;}
+  .slider-track{--per-view:1;}
   .content-grid{grid-template-columns:1fr;}
   .method-track{grid-template-columns:repeat(2,1fr);}
   .about-facts{grid-template-columns:repeat(2,1fr);}
-  .career-track,.edu-row,.testi-grid{grid-template-columns:1fr;}
-  .testi-card.featured{grid-column:auto;padding:28px 24px;}
+  .career-track,.edu-row{grid-template-columns:1fr;}
+  .testi-card{padding:26px 22px;}
   .cta-content{padding-top:32px;padding-bottom:52px;}
   .cta-actions .btn{flex:1 1 auto;}
   .cta-steps{grid-template-columns:1fr;gap:18px;}
@@ -506,7 +502,7 @@ footer{padding:60px 0 30px;margin-top:60px;border-top:1px solid var(--line);}
   .nav-right .btn span{display:none;}
   .nav-right .btn{padding:11px 13px;}
   .cta-strip-inner{grid-template-columns:1fr;}
-  .proj-count{display:none;}
+  .slider-count{display:none;}
 }
 </style>
 </head>
@@ -776,8 +772,8 @@ footer{padding:60px 0 30px;margin-top:60px;border-top:1px solid var(--line);}
       </div>
     </div>
 
-    <div class="proj-slider reveal" aria-roledescription="carrousel" aria-label="Réalisations">
-    <div class="proj-scroller" id="projTrack" tabindex="0">
+    <div class="slider reveal" data-slider data-label-one="Aller au projet {n}" data-label-many="Afficher les projets {from} à {to}" aria-roledescription="carrousel" aria-label="Réalisations">
+    <div class="slider-track proj-scroller" tabindex="0">
       <!-- Possah = projet phare -->
       <div class="proj-card">
         <div class="proj-media">
@@ -866,18 +862,18 @@ footer{padding:60px 0 30px;margin-top:60px;border-top:1px solid var(--line);}
         </div>
       </div>
     </div>
-    <div class="proj-nav">
-      <div class="proj-dots" id="projDots"></div>
-      <div class="proj-controls">
-        <span class="proj-count" id="projCount" aria-live="polite"></span>
-        <button type="button" class="proj-arrow proj-play" id="projPlay" aria-label="Mettre en pause le défilement automatique">
+    <div class="slider-nav">
+      <div class="slider-dots"></div>
+      <div class="slider-controls">
+        <span class="slider-count" aria-live="polite"></span>
+        <button type="button" class="slider-arrow slider-play" aria-label="Mettre en pause le défilement automatique">
           <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6v12M15 6v12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
           <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5z" fill="currentColor"/></svg>
         </button>
-        <button type="button" class="proj-arrow" id="projPrev" aria-label="Projet précédent">
+        <button type="button" class="slider-arrow slider-prev" aria-label="Projet précédent">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <button type="button" class="proj-arrow" id="projNext" aria-label="Projet suivant">
+        <button type="button" class="slider-arrow slider-next" aria-label="Projet suivant">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
@@ -1002,9 +998,10 @@ footer{padding:60px 0 30px;margin-top:60px;border-top:1px solid var(--line);}
       </div>
       <p class="sub">Les retours des clients et collaborateurs avec qui j'ai mené des projets.</p>
     </div>
-    <div class="testi-grid">
+    <div class="slider reveal" data-slider data-label-one="Aller au témoignage {n}" data-label-many="Afficher les témoignages {from} à {to}" aria-roledescription="carrousel" aria-label="Témoignages">
+    <div class="slider-track" tabindex="0">
       <!-- Témoignage : dupliquer ce bloc pour chaque retour RÉEL, avec l'accord de la personne.
-      <figure class="testi-card reveal">
+      <figure class="testi-card">
         <blockquote>« Texte du témoignage. »</blockquote>
         <figcaption>
           <span class="testi-avatar">PN</span>
@@ -1012,20 +1009,38 @@ footer{padding:60px 0 30px;margin-top:60px;border-top:1px solid var(--line);}
         </figcaption>
       </figure>
       -->
-      <figure class="testi-card featured reveal">
+      <figure class="testi-card">
         <blockquote>« Nous avions une idée, mais Thierry nous a aidés à la transformer en une véritable solution. Sa maîtrise technique, sa compréhension des enjeux métiers et sa capacité à proposer des solutions concrètes ont fait toute la différence. Un professionnel sérieux, impliqué et orienté résultats. »</blockquote>
         <figcaption>
           <span class="testi-avatar">FP</span>
           <span class="testi-who"><b>FP</b><span>PDG, EVERYDAY</span></span>
         </figcaption>
       </figure>
-      <div class="testi-invite reveal">
+      <!-- Garder cette carte en dernier : elle invite les autres clients à laisser leur avis. -->
+      <div class="testi-invite">
         <div>
           <h3>Vous avez travaillé avec moi&nbsp;?</h3>
           <p>Chez EH2S, à la SABC ou sur un projet comme Possah, Kola ou OCM ERP : votre retour aide d'autres entreprises à se lancer. Il sera publié ici avec votre accord.</p>
         </div>
         <a href="mailto:thierrylalanda@gmail.com?subject=T%C3%A9moignage" class="btn btn-outline">Envoyer mon témoignage</a>
       </div>
+    </div>
+    <div class="slider-nav">
+      <div class="slider-dots"></div>
+      <div class="slider-controls">
+        <span class="slider-count" aria-live="polite"></span>
+        <button type="button" class="slider-arrow slider-play" aria-label="Mettre en pause le défilement automatique">
+          <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6v12M15 6v12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5z" fill="currentColor"/></svg>
+        </button>
+        <button type="button" class="slider-arrow slider-prev" aria-label="Témoignage précédent">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="slider-arrow slider-next" aria-label="Témoignage suivant">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -1236,29 +1251,42 @@ window.addEventListener('scroll', statMethodFallbackSweep, { passive: true });
 window.addEventListener('load', statMethodFallbackSweep);
 setTimeout(() => { statEls.forEach(runCounter); runMethod(); }, 4200);
 
-// Réalisations slider: 3/2/1 cards visible depending on width, moves one card at a time (scroll-snap + arrows, dots, keyboard)
-const projTrack = document.getElementById('projTrack');
-if (projTrack) {
-  const slides = Array.from(projTrack.querySelectorAll('.proj-card'));
-  const projPrev = document.getElementById('projPrev');
-  const projNext = document.getElementById('projNext');
-  const projDots = document.getElementById('projDots');
-  const projCount = document.getElementById('projCount');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Carousels (réalisations, témoignages): 3/2/1 cards visible depending on width (fewer when there
+// aren't enough cards), one card per step — native scroll-snap + arrows, dots, keyboard and a 5 s autoplay
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function initSlider(slider) {
+  const track = slider.querySelector('.slider-track');
+  const slides = Array.from(track.children);
+  if (!slides.length) return;
+  const nav = slider.querySelector('.slider-nav');
+  const prevBtn = slider.querySelector('.slider-prev');
+  const nextBtn = slider.querySelector('.slider-next');
+  const playBtn = slider.querySelector('.slider-play');
+  const dotsWrap = slider.querySelector('.slider-dots');
+  const counter = slider.querySelector('.slider-count');
+  const labelOne = slider.dataset.labelOne || 'Aller à la carte {n}';
+  const labelMany = slider.dataset.labelMany || 'Afficher les cartes {from} à {to}';
   let currentSlide = 0;
   // slide an in-flight smooth scroll is heading to, so rapid clicks keep advancing
   let targetSlide = null;
   const slideLeft = (i) => slides[i].offsetLeft - slides[0].offsetLeft;
-  const slideStep = () => (slides.length > 1 ? slideLeft(1) : projTrack.clientWidth);
+  const slideStep = () => (slides.length > 1 ? slideLeft(1) : track.clientWidth);
   // cards fully visible at the current width, and the last index the track can start at
-  const perView = () => Math.max(1, Math.round((projTrack.clientWidth + slideStep() - slides[0].offsetWidth) / slideStep()));
+  const perView = () => Math.max(1, Math.round((track.clientWidth + slideStep() - slides[0].offsetWidth) / slideStep()));
   const maxIndex = () => Math.max(0, slides.length - perView());
-  const projNav = projTrack.parentElement.querySelector('.proj-nav');
+
+  // never leave empty columns: with fewer cards than the breakpoint shows, the cards widen instead
+  const fitPerView = () => {
+    track.style.removeProperty('--per-view');
+    const base = parseInt(getComputedStyle(track).getPropertyValue('--per-view'), 10) || 1;
+    if (slides.length < base) track.style.setProperty('--per-view', String(slides.length));
+  };
 
   const goToSlide = (i, instant) => {
     const index = Math.max(0, Math.min(maxIndex(), i));
     targetSlide = index;
-    projTrack.scrollTo({ left: slideLeft(index), behavior: instant || reduceMotion ? 'auto' : 'smooth' });
+    track.scrollTo({ left: slideLeft(index), behavior: instant || reduceMotion ? 'auto' : 'smooth' });
     // reflect the destination right away instead of waiting for scroll events
     updateSlider();
     // any move (manual or automatic) gives the visitor a full 5 s before the next auto-advance
@@ -1277,14 +1305,16 @@ if (projTrack) {
     const count = maxIndex() + 1;
     if (dots.length === count) return;
     const view = perView();
-    projDots.innerHTML = '';
+    dotsWrap.innerHTML = '';
     dots = Array.from({ length: count }, (_, i) => {
       const dot = document.createElement('button');
       dot.type = 'button';
-      dot.className = 'proj-dot';
-      dot.setAttribute('aria-label', view > 1 ? `Afficher les projets ${i + 1} à ${i + view}` : `Aller au projet ${i + 1}`);
+      dot.className = 'slider-dot';
+      dot.setAttribute('aria-label', view > 1
+        ? labelMany.replace('{from}', i + 1).replace('{to}', i + view)
+        : labelOne.replace('{n}', i + 1));
       dot.addEventListener('click', () => goToSlide(i));
-      projDots.appendChild(dot);
+      dotsWrap.appendChild(dot);
       return dot;
     });
   };
@@ -1293,38 +1323,37 @@ if (projTrack) {
     buildDots();
     const last = maxIndex();
     const view = perView();
-    currentSlide = Math.max(0, Math.min(last, Math.round(projTrack.scrollLeft / slideStep())));
-    if (targetSlide !== null && Math.abs(projTrack.scrollLeft - slideLeft(targetSlide)) < 2) targetSlide = null;
+    currentSlide = Math.max(0, Math.min(last, Math.round(track.scrollLeft / slideStep())));
+    if (targetSlide !== null && Math.abs(track.scrollLeft - slideLeft(targetSlide)) < 2) targetSlide = null;
     // while a button-driven scroll is in flight, show where it is heading
     const shown = targetSlide !== null ? targetSlide : currentSlide;
     dots.forEach((d, i) => d.setAttribute('aria-current', i === shown ? 'true' : 'false'));
-    projCount.textContent = view > 1
+    counter.textContent = view > 1
       ? `${shown + 1}–${Math.min(slides.length, shown + view)} / ${slides.length}`
       : `${shown + 1} / ${slides.length}`;
-    projPrev.disabled = shown === 0;
-    projNext.disabled = shown >= last;
-    // nothing to slide when every card already fits
-    projNav.style.display = last === 0 ? 'none' : '';
+    prevBtn.disabled = shown === 0;
+    nextBtn.disabled = shown >= last;
+    // nothing to slide when every card already fits: hide the controls and drop the tab stop
+    nav.style.display = last === 0 ? 'none' : '';
+    track.tabIndex = last === 0 ? -1 : 0;
   };
 
   const baseSlide = () => (targetSlide !== null ? targetSlide : currentSlide);
-  projPrev.addEventListener('click', () => goToSlide(baseSlide() - 1));
-  projNext.addEventListener('click', () => goToSlide(baseSlide() + 1));
+  prevBtn.addEventListener('click', () => goToSlide(baseSlide() - 1));
+  nextBtn.addEventListener('click', () => goToSlide(baseSlide() + 1));
   // a manual swipe/wheel takes over from any pending button navigation
-  ['pointerdown', 'wheel', 'touchstart'].forEach((evt) => projTrack.addEventListener(evt, () => { targetSlide = null; restartAutoplay(); }, { passive: true }));
-  projTrack.addEventListener('scroll', () => requestAnimationFrame(updateSlider), { passive: true });
-  projTrack.addEventListener('keydown', (e) => {
+  ['pointerdown', 'wheel', 'touchstart'].forEach((evt) => track.addEventListener(evt, () => { targetSlide = null; restartAutoplay(); }, { passive: true }));
+  track.addEventListener('scroll', () => requestAnimationFrame(updateSlider), { passive: true });
+  track.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') { e.preventDefault(); goToSlide(baseSlide() + 1); }
     if (e.key === 'ArrowLeft') { e.preventDefault(); goToSlide(baseSlide() - 1); }
   });
-  window.addEventListener('resize', () => { updateSlider(); goToSlide(currentSlide, true); });
+  window.addEventListener('resize', () => { fitPerView(); updateSlider(); goToSlide(currentSlide, true); });
 
   // Autoplay: next position every 5 s, back to the start after the last one.
   // Pauses while hovered with a mouse, focused from the keyboard, off-screen or in a hidden tab;
   // the play/pause button stops it for good. Off by default for visitors who prefer reduced motion.
   const AUTOPLAY_DELAY = 5000;
-  const projSlider = projTrack.parentElement;
-  const projPlay = document.getElementById('projPlay');
   let autoplayEnabled = !reduceMotion;
   let hovering = false;
   let keyboardFocus = false;
@@ -1338,25 +1367,28 @@ if (projTrack) {
       autoplayTimer = setInterval(() => goToSlide(baseSlide() >= maxIndex() ? 0 : baseSlide() + 1), AUTOPLAY_DELAY);
     }
     // don't announce the counter every 5 s to screen readers while it moves on its own
-    projCount.setAttribute('aria-live', autoplayTimer ? 'off' : 'polite');
+    counter.setAttribute('aria-live', autoplayTimer ? 'off' : 'polite');
   }
 
   const renderPlayButton = () => {
-    projPlay.classList.toggle('paused', !autoplayEnabled);
-    projPlay.setAttribute('aria-label', autoplayEnabled ? 'Mettre en pause le défilement automatique' : 'Reprendre le défilement automatique');
+    playBtn.classList.toggle('paused', !autoplayEnabled);
+    playBtn.setAttribute('aria-label', autoplayEnabled ? 'Mettre en pause le défilement automatique' : 'Reprendre le défilement automatique');
   };
 
-  projPlay.addEventListener('click', () => { autoplayEnabled = !autoplayEnabled; renderPlayButton(); restartAutoplay(); });
-  projSlider.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hovering = true; restartAutoplay(); } });
-  projSlider.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hovering = false; restartAutoplay(); } });
-  projSlider.addEventListener('focusin', (e) => { keyboardFocus = e.target.matches(':focus-visible'); restartAutoplay(); });
-  projSlider.addEventListener('focusout', (e) => { if (!projSlider.contains(e.relatedTarget)) { keyboardFocus = false; restartAutoplay(); } });
+  playBtn.addEventListener('click', () => { autoplayEnabled = !autoplayEnabled; renderPlayButton(); restartAutoplay(); });
+  slider.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hovering = true; restartAutoplay(); } });
+  slider.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hovering = false; restartAutoplay(); } });
+  slider.addEventListener('focusin', (e) => { keyboardFocus = e.target.matches(':focus-visible'); restartAutoplay(); });
+  slider.addEventListener('focusout', (e) => { if (!slider.contains(e.relatedTarget)) { keyboardFocus = false; restartAutoplay(); } });
   document.addEventListener('visibilitychange', restartAutoplay);
-  new IntersectionObserver((entries) => { sliderInView = entries[0].isIntersecting; restartAutoplay(); }, { threshold: 0.35 }).observe(projSlider);
+  new IntersectionObserver((entries) => { sliderInView = entries[0].isIntersecting; restartAutoplay(); }, { threshold: 0.35 }).observe(slider);
 
+  fitPerView();
   renderPlayButton();
   updateSlider();
 }
+
+document.querySelectorAll('[data-slider]').forEach(initSlider);
 
 // Scroll-spy nav
 const sections = ['accueil','apropos','services','realisations','methode','temoignages','contenu','contact']
